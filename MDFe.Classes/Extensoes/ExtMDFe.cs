@@ -41,7 +41,7 @@ using MDFe.Utils.Flags;
 using MDFe.Utils.Validacao;
 using MDFEletronico = MDFe.Classes.Informacoes.MDFe;
 
-namespace MDFe.Classes.Extencoes
+namespace MDFe.Classes.Extensoes
 {
     public static class ExtMDFe
     {

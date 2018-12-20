@@ -83,21 +83,37 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
+      <Project>{9984ec15-18e1-4a87-b4db-18ac913dc4e8}</Project>
+      <Name>DFe.Classes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
       <Project>{B4E1A7A6-5D66-4326-8A8D-39338E6FC84C}</Project>
       <Name>DFe.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\MDFe.Classes\MDFe.Classes.csproj">
-      <Project>{9794CB98-4691-4218-A127-C573C2E7FF83}</Project>
+      <Project>{bca16bb1-29fd-4024-8293-e2c8c583dd14}</Project>
       <Name>MDFe.Classes</Name>
     </ProjectReference>
     <ProjectReference Include="..\MDFe.Damdfe.Base\MDFe.Damdfe.Base.csproj">
-      <Project>{2419900B-1E90-4181-9338-3E84237C3B00}</Project>
+      <Project>{a7829d7a-0271-424f-8ae2-009b1dd1e55f}</Project>
       <Name>MDFe.Damdfe.Base</Name>
     </ProjectReference>
     <ProjectReference Include="..\MDFe.Damdfe.Fast\MDFe.Damdfe.Fast.csproj">
-      <Project>{730D4787-C8CF-4FA1-B9F5-DC814DBEAB7A}</Project>
+      <Project>{4d91131e-ba0e-48a3-ae20-38c4c70da256}</Project>
       <Name>MDFe.Damdfe.Fast</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MDFe.Servicos\MDFe.Servicos.csproj">
+      <Project>{3e39f5da-445e-4976-948b-d2aa44553a3a}</Project>
+      <Name>MDFe.Servicos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MDFe.Utils\MDFe.Utils.csproj">
+      <Project>{2d300ac0-978d-40b8-95af-cc269dae0f1a}</Project>
+      <Name>MDFe.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MDFe.Wsdl\MDFe.Wsdl.csproj">
+      <Project>{8365bdfe-d272-49ec-b377-36dbe29146aa}</Project>
+      <Name>MDFe.Wsdl</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

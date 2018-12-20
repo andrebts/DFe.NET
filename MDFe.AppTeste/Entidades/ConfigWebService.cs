@@ -3,6 +3,7 @@ using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using MDFe.Utils.Flags;
 
+
 namespace MDFe.AppTeste.Entidades
 {
     [Serializable]

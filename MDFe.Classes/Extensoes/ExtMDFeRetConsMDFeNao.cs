@@ -35,7 +35,7 @@ using DFe.Utils;
 using MDFe.Classes.Retorno.MDFeConsultaNaoEncerrado;
 using MDFe.Utils.Configuracoes;
 
-namespace MDFe.Classes.Extencoes
+namespace MDFe.Classes.Extensoes
 {
     public static class ExtMDFeRetConsMDFeNao
     {

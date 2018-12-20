@@ -3,11 +3,12 @@ using System.Drawing;
 using System.Windows.Forms;
 
 
-using MDFe.Classes.Retorno;
-using MDFe.Damdfe.Fast;
-using MDFe.Damdfe.Base;
+
 using DFe.Utils;
 using System.IO;
+using MDFe.Classes.Retorno;
+using MDFe.Damdfe.Base;
+using MDFe.Damdfe.Fast;
 
 namespace MDFe.Damdfe.AppTeste
 {

@@ -31,9 +31,11 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using MDFe.Classes.Extencoes;
+using DFe.Classes.Flags;
+using MDFe.Classes.Extensoes;
 using MDFe.Classes.Retorno.MDFeRetRecepcao;
 using MDFe.Servicos.Factory;
+
 
 namespace MDFe.Servicos.RetRecepcaoMDFe
 {

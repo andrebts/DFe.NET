@@ -33,7 +33,7 @@
 
 using System;
 using DFe.Utils;
-using MDFe.Classes.Extencoes;
+using MDFe.Classes.Extensoes;
 using MDFe.Classes.Flags;
 using MDFe.Classes.Retorno.MDFeRecepcao;
 using MDFe.Classes.Servicos.Autorizacao;
@@ -65,7 +65,7 @@ namespace MDFe.Servicos.RecepcaoMDFe
             }
 
             enviMDFe.MDFe.Assina();
-            enviMDFe.Valida();
+            enviMDFe.Valida(); 
             enviMDFe.SalvarXmlEmDisco();
 
             var webService = WsdlFactory.CriaWsdlMDFeRecepcao();

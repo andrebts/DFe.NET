@@ -38,6 +38,30 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MDFe.Classes, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\MDFe.Classes\bin\Debug\net45\MDFe.Classes.dll</HintPath>
+    </Reference>
+    <Reference Include="MDFe.Damdfe.Base, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\MDFe.Damdfe.Fast\bin\Debug\net45\MDFe.Damdfe.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="MDFe.Damdfe.Fast, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\MDFe.Damdfe.Fast\bin\Debug\net45\MDFe.Damdfe.Fast.dll</HintPath>
+    </Reference>
+    <Reference Include="MDFe.Servicos, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\MDFe.Servicos\bin\Debug\net45\MDFe.Servicos.dll</HintPath>
+    </Reference>
+    <Reference Include="MDFe.Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\MDFe.Classes\bin\Debug\net45\MDFe.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="MDFe.Wsdl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\MDFe.Servicos\bin\Debug\net45\MDFe.Wsdl.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -417,30 +441,6 @@
     <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
       <Project>{b4e1a7a6-5d66-4326-8a8d-39338e6fc84c}</Project>
       <Name>DFe.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MDFe.Classes\MDFe.Classes.csproj">
-      <Project>{9794cb98-4691-4218-a127-c573c2e7ff83}</Project>
-      <Name>MDFe.Classes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MDFe.Servicos\MDFe.Servicos.csproj">
-      <Project>{9587937a-a826-4785-9d1e-3a9f4a622b7c}</Project>
-      <Name>MDFe.Servicos</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MDFe.Utils\MDFe.Utils.csproj">
-      <Project>{9c0678eb-78f2-49c6-91bf-38148fc37fbb}</Project>
-      <Name>MDFe.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SMDFe.Classes\SMDFe.Classes.csproj">
-      <Project>{71a408e4-299c-4a71-ad98-92354588bfdd}</Project>
-      <Name>SMDFe.Classes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SMDFe.Servicos\SMDFe.Servicos.csproj">
-      <Project>{16ac3712-e03d-4ebc-ab55-807fc9c46066}</Project>
-      <Name>SMDFe.Servicos</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SMDFe.Utils\SMDFe.Utils.csproj">
-      <Project>{8d357ec0-9082-4b4e-82d8-ae65ac655eb8}</Project>
-      <Name>SMDFe.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

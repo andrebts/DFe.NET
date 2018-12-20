@@ -31,36 +31,43 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+
 using DFe.Classes.Extensoes;
-using MDFe.Classes.Extencoes;
+using MDFe.Classes.Extensoes;
 using MDFe.Servicos.Enderecos.Helper;
 using MDFe.Utils.Configuracoes;
 using MDFe.Wsdl.Configuracao;
 using MDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados;
 using MDFe.Wsdl.Gerado.MDFeConsultaProtoloco;
+using MDFe.Wsdl.Gerado.MDFeEventos;
 using MDFe.Wsdl.Gerado.MDFeRecepcao;
 using MDFe.Wsdl.Gerado.MDFeRetRecepcao;
 using MDFe.Wsdl.Gerado.MDFeStatusServico;
+
 
 namespace MDFe.Servicos.Factory
 {
     public static class WsdlFactory
     {
+
         public static MDFeConsNaoEnc CriaWsdlMDFeConsNaoEnc()
         {
+
             var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeConsNaoEnc;
             var versao = MDFeConfiguracao.VersaoWebService.VersaoLayout.GetVersaoString();
             var configuracaoWsdl = CriaConfiguracao(url, versao);
 
+
             var ws = new MDFeConsNaoEnc(configuracaoWsdl);
+
             return ws;
         }
 
         public static MDFeConsulta CriaWsdlMDFeConsulta()
         {
+
             var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeConsulta;
             var versao = MDFeConfiguracao.VersaoWebService.VersaoLayout.GetVersaoString();
-
             var configuracaoWsdl = CriaConfiguracao(url, versao);
 
             return new MDFeConsulta(configuracaoWsdl);
@@ -83,7 +90,7 @@ namespace MDFe.Servicos.Factory
 
             var configuracaoWsdl = CriaConfiguracao(url, versaoServico);
 
-            return new MDFeRecepcao(configuracaoWsdl); ;
+            return new MDFeRecepcao(configuracaoWsdl);
         }
 
         public static MDFeRetRecepcao CriaWsdlMDFeRetRecepcao()
@@ -106,10 +113,12 @@ namespace MDFe.Servicos.Factory
             return new MDFeStatusServico(configuracaoWsdl);
         }
 
+
         private static WsdlConfiguracao CriaConfiguracao(string url, string versao)
         {
             var codigoEstado = MDFeConfiguracao.VersaoWebService.UfEmitente.GetCodigoIbgeEmString();
-            var certificadoDigital = MDFeConfiguracao.X509Certificate2;
+            
+            var certificadoDigital = MDFeConfiguracao.X509Certificate2; 
 
             return new WsdlConfiguracao
             {
