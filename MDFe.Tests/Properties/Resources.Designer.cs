@@ -9,6 +9,9 @@
 //------------------------------------------------------------------------------
 
 namespace MDFe.Tests.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   Uma classe de recurso de tipo de alta segurança, para pesquisar cadeias de caracteres localizadas etc.
     /// </summary>
@@ -36,7 +39,7 @@ namespace MDFe.Tests.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SMDFe.Tests.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MDFe.Tests.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
