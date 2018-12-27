@@ -36,11 +36,152 @@ using System.IO;
 using System.Xml;
 using System.Xml.Schema;
 using MDFe.Utils.Configuracoes;
+using MDFe.Utils.Flags;
 
 namespace MDFe.Utils.Validacao
 {
     public class Validador
     {
+        private static string ObterNomeSchema(MDFeServico mdFeServico, VersaoServico versao)
+        {
+            switch (mdFeServico)
+            {
+                case MDFeServico.MDFEletronico:
+                    switch (versao)
+                    {
+                        case VersaoServico.Versao100:
+                            return "MDFe_v1.00.xsd";
+                        case VersaoServico.Versao300:
+                            return "MDFe_v3.00.xsd";
+                    }
+                    break;
+                case MDFeServico.MDFeRodo:
+                    switch (versao)
+                    {
+                        case VersaoServico.Versao100:
+                            return "MDFeModalRodoviario_v1.00.xsd";
+                        case VersaoServico.Versao300:
+                            return "MDFeModalRodoviario_v3.00.xsd";
+                    }
+                    break;
+                case MDFeServico.MDFeAereo:
+                    switch (versao)
+                    {
+                        case VersaoServico.Versao100:
+                            return "MDFeModalAereo_v1.00.xsd";
+                        case VersaoServico.Versao300:
+                            return "MDFeModalAereo_v3.00.xsd";
+                    }
+                    break;
+                case MDFeServico.MDFeAquav:
+                    switch (versao)
+                    {
+                        case VersaoServico.Versao100:
+                            return "MDFeModalAquaviario_v1.00.xsd";
+                        case VersaoServico.Versao300:
+                            return "MDFeModalAquaviario_v3.00.xsd";
+                    }
+                    break;
+                case MDFeServico.MDFeFerrov:
+                    switch (versao)
+                    {
+                        case VersaoServico.Versao100:
+                            return "MDFeModalFerroviario_v1.00.xsd";
+                        case VersaoServico.Versao300:
+                            return "MDFeModalFerroviario_v3.00.xsd";
+                    }
+                    break;
+                case MDFeServico.MDFeConsReciMDFe:
+                    switch (versao)
+                    {
+                        case VersaoServico.Versao100:
+                            return "consReciMdfe_v1.00.xsd";
+                        case VersaoServico.Versao300:
+                            return "consReciMdfe_v3.00.xsd";
+                    }
+                    break;
+                case MDFeServico.MDFeConsSitMDFe:
+                    switch (versao)
+                    {
+                        case VersaoServico.Versao100:
+                            return "consSitMdfe_v1.00.xsd";
+                        case VersaoServico.Versao300:
+                            return "consSitMdfe_v3.00.xsd";
+                    }
+                    break;
+                case MDFeServico.MDFeConsStatServMDFe:
+                    switch (versao)
+                    {
+                        case VersaoServico.Versao100:
+                            return "consStatServMDFe_v1.00.xsd";
+                        case VersaoServico.Versao300:
+                            return "consStatServMDFe_v3.00.xsd";
+                    }
+                    break;
+                case MDFeServico.MDFeCosMDFeNaoEnc:
+                    switch (versao)
+                    {
+                        case VersaoServico.Versao100:
+                            return "consMDFeNaoEnc_v1.00.xsd";
+                        case VersaoServico.Versao300:
+                            return "consMDFeNaoEnc_v3.00.xsd";
+                    }
+                    break;
+                case MDFeServico.MDFeEnviMDFe:
+                    switch (versao)
+                    {
+                        case VersaoServico.Versao100:
+                            return "enviMDFe_v1.00.xsd";
+                        case VersaoServico.Versao300:
+                            return "enviMDFe_v3.00.xsd";
+                    }
+                    break;
+                case MDFeServico.MDFeEventoMDFe:
+                    switch (versao)
+                    {
+                        case VersaoServico.Versao100:
+                            return "eventoMDFe_v1.00.xsd";
+                        case VersaoServico.Versao300:
+                            return "eventoMDFe_v3.00.xsd";
+                    }
+                    break;
+                case MDFeServico.MDFeEvCancMDFe:
+                    switch (versao)
+                    {
+                        case VersaoServico.Versao100:
+                            return "evCancMDFe_v1.00.xsd";
+                        case VersaoServico.Versao300:
+                            return "evCancMDFe_v3.00.xsd";
+                    }
+                    break;
+                case MDFeServico.MDFeEvEncMDFe:
+                    switch (versao)
+                    {
+                        case VersaoServico.Versao100:
+                            return "evEncMDFe_v1.00.xsd";
+                        case VersaoServico.Versao300:
+                            return "evEncMDFe_v3.00.xsd";
+                    }
+                    break;
+                case MDFeServico.MDFeEvIncCondutorMDFe:
+                    switch (versao)
+                    {
+                        case VersaoServico.Versao100:
+                            return "evIncCondutorMDFe_v1.00.xsd";
+                        case VersaoServico.Versao300:
+                            return "evIncCondutorMDFe_v3.00.xsd";
+                    }
+                    break;
+            }
+            return null;
+        }
+
+        public static void Valida(string xml, MDFeServico servico, MDFeConfiguracao cfgMdfe = null)
+        {
+            var schema = ObterNomeSchema(servico, cfgMdfe.VersaoWebService.VersaoLayout);
+            Valida(xml, schema, cfgMdfe);
+        }
+
         public static void Valida(string xml, string schema, MDFeConfiguracao cfgMdfe = null)
         {
             var config = cfgMdfe ?? MDFeConfiguracao.Instancia;

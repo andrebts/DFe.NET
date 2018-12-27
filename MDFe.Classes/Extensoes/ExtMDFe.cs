@@ -32,9 +32,19 @@
 /********************************************************************************/
 
 using System;
+using System.ComponentModel;
+using System.Globalization;
 using DFe.Classes.Entidades;
 using DFe.Utils;
+using MDFe.Classes.Flags;
 using MDFe.Classes.Informacoes;
+using MDFe.Classes.Informacoes.ConsultaNaoEncerrados;
+using MDFe.Classes.Informacoes.ConsultaProtocolo;
+using MDFe.Classes.Informacoes.Evento;
+using MDFe.Classes.Informacoes.RetRecepcao;
+using MDFe.Classes.Retorno.MDFeRecepcao;
+using MDFe.Classes.Retorno.MDFeRetRecepcao;
+using MDFe.Classes.Servicos.Autorizacao;
 using NFe.Utils.Assinatura;
 using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Flags;
@@ -66,7 +76,7 @@ namespace MDFe.Classes.Extensoes
             var tipoModal = mdfe.InfMDFe.InfModal.Modal.GetType();
             var xmlModal = FuncoesXml.ClasseParaXmlString(mdfe.InfMDFe.InfModal);
 
-            if (tipoModal == typeof (MDFeRodo))
+            if (tipoModal == typeof(MDFeRodo))
             {
                 switch (config.VersaoWebService.VersaoLayout)
                 {
@@ -79,7 +89,7 @@ namespace MDFe.Classes.Extensoes
                 }
             }
 
-            if (tipoModal == typeof (MDFeAereo))
+            if (tipoModal == typeof(MDFeAereo))
             {
                 switch (config.VersaoWebService.VersaoLayout)
                 {
@@ -92,7 +102,7 @@ namespace MDFe.Classes.Extensoes
                 }
             }
 
-            if (tipoModal == typeof (MDFeAquav))
+            if (tipoModal == typeof(MDFeAquav))
             {
                 switch (config.VersaoWebService.VersaoLayout)
                 {
@@ -105,7 +115,7 @@ namespace MDFe.Classes.Extensoes
                 }
             }
 
-            if (tipoModal == typeof (MDFeFerrov))
+            if (tipoModal == typeof(MDFeFerrov))
             {
                 switch (config.VersaoWebService.VersaoLayout)
                 {
@@ -128,7 +138,7 @@ namespace MDFe.Classes.Extensoes
             if (mdfe == null) throw new ArgumentException("Erro de assinatura, MDFe esta null");
 
             var modeloDocumentoFiscal = mdfe.InfMDFe.Ide.Mod;
-            var tipoEmissao = (int) mdfe.InfMDFe.Ide.TpEmis;
+            var tipoEmissao = (int)mdfe.InfMDFe.Ide.TpEmis;
             var codigoNumerico = mdfe.InfMDFe.Ide.CMDF;
             var estado = mdfe.InfMDFe.Ide.CUF;
             var dataEHoraEmissao = mdfe.InfMDFe.Ide.DhEmi;
@@ -154,6 +164,47 @@ namespace MDFe.Classes.Extensoes
             return FuncoesXml.ClasseParaXmlString(mdfe);
         }
 
+        public static T Valida<T>(T objeto, MDFeConfiguracao cfgMdfe = null)
+        {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+
+            if (objeto == null) throw new ArgumentException("Erro de assinatura, objeto encontra-se null");
+
+            var xmlServico = FuncoesXml.ClasseParaXmlString(objeto);
+
+            var tipoServico = typeof(T).Name;
+            var mdfeServico = (MDFeServico) Enum.Parse(typeof(MDFeServico), tipoServico);
+
+            Validador.Valida(xmlServico, mdfeServico, cfgMdfe);
+
+            switch (mdfeServico)
+            {
+                case MDFeServico.MDFEletronico:
+                    var mdfe = objeto as MDFEletronico;
+                    var tipoModal = mdfe.InfMDFe.InfModal.Modal.GetType().Name;
+                    var xmlModal = FuncoesXml.ClasseParaXmlString(mdfe.InfMDFe.InfModal);
+                    mdfeServico = (MDFeServico)Enum.Parse(typeof(MDFeServico), tipoModal);
+                    Validador.Valida(xmlModal, mdfeServico, cfgMdfe);
+                    break;
+                case MDFeServico.MDFeEnviMDFe:
+                    var enviMdfe = objeto as MDFeEnviMDFe;
+                    xmlServico = FuncoesXml.ClasseParaXmlString(enviMdfe.MDFe);
+                    tipoServico = enviMdfe.MDFe.GetType().Name;
+                    mdfeServico = (MDFeServico)Enum.Parse(typeof(MDFeServico), tipoServico);
+                    Validador.Valida(xmlServico, mdfeServico, cfgMdfe);
+                    break;
+                case MDFeServico.MDFeEventoMDFe:
+                    var evento = objeto as MDFeEventoMDFe;
+                    tipoServico = evento.InfEvento.DetEvento.EventoContainer.GetType().Name;
+                    var xmlTipoEvento = FuncoesXml.ClasseParaXmlString(evento.InfEvento.DetEvento.EventoContainer);
+                    mdfeServico = (MDFeServico)Enum.Parse(typeof(MDFeServico), tipoServico);
+                    Validador.Valida(xmlTipoEvento, mdfeServico, cfgMdfe);
+                    break;
+            }
+
+            return objeto;
+        }
+        //remover depois e deixar apenas o outro abaixo
         public static void SalvarXmlEmDisco(this MDFEletronico mdfe, string nomeArquivo = null, MDFeConfiguracao cfgMdfe = null)
         {
             var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
@@ -164,6 +215,79 @@ namespace MDFe.Classes.Extensoes
                 nomeArquivo = config.CaminhoSalvarXml + @"\" + mdfe.Chave() + "-mdfe.xml";
 
             FuncoesXml.ClasseParaArquivoXml(mdfe, nomeArquivo);
+        }
+
+        public static void SalvarXmlEmDisco<T>(T objeto, string identificador = null, MDFeConfiguracao cfgMdfe = null)
+        {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+
+            if (config.NaoSalvarXml()) return;
+
+            identificador = config.CaminhoSalvarXml + @"\" + ObterNomeclaturaDoArquivo(objeto, identificador);
+
+            FuncoesXml.ClasseParaArquivoXml(objeto, identificador);
+        }
+
+        private static string ObterNomeclaturaDoArquivo<T>(T objeto, string identificador = null)
+        {
+            var nome = "xmlsalvo.xml";
+            var classe = typeof(T).Name;
+            var tipo = (MDFeExt)Enum.Parse(typeof(MDFeExt), classe);
+            switch (tipo)
+            {
+                case MDFeExt.MDFEletronico:
+                    var mdfe = objeto as MDFEletronico;
+                    nome = mdfe.Chave() + "-mdfe.xml";
+                    break;
+                case MDFeExt.MDFeConsReciMDFe:
+                    var consReci = objeto as MDFeConsReciMDFe;
+                    nome = consReci.NRec + "-ped-rec.xml";
+                    break;
+                case MDFeExt.MDFeConsSitMDFe:
+                    var consSit = objeto as MDFeConsSitMDFe;
+                    nome = consSit.ChMDFe + "-ped-sit.xml";
+                    break;
+                case MDFeExt.MDFeConsStatServMDFe:
+                    nome = "-pedido-status-servico.xml";
+                    break;
+                case MDFeExt.MDFeCosMDFeNaoEnc:
+                    var consNaoEnc = objeto as MDFeCosMDFeNaoEnc;
+                    nome = consNaoEnc.CNPJ + "-ped-sit.xml";
+                    break;
+                case MDFeExt.MDFeEnviMDFe:
+                    var enviMDFe = objeto as MDFeEnviMDFe;
+                    nome = enviMDFe.MDFe.Chave() + "-completo-mdfe.xml";
+                    break;
+                case MDFeExt.MDFeRetConsReciMDFe:
+                    var consReciMdFe = objeto as MDFeRetConsReciMDFe;
+                    nome = consReciMdFe.NRec + "-pro-rec.xml";
+                    break;
+                case MDFeExt.MDFeRetConsStatServ:
+                    nome = "-retorno-status-servico.xml";
+                    break;
+                case MDFeExt.MDFeRetEnviMDFe:
+                    var retEnviMDFe = objeto as MDFeRetEnviMDFe;
+                    nome = retEnviMDFe.InfRec.NRec + "-rec.xml";
+                    break;
+                case MDFeExt.MDFeRetConsMDFeNao:
+                    if (string.IsNullOrEmpty(identificador))
+                        nome = identificador + "-sit.xml";
+                    break;
+                case MDFeExt.MDFeRetConsSitMDFe:
+                    if (string.IsNullOrEmpty(identificador))
+                        nome = identificador + "-sit.xml";
+                    break;
+                case MDFeExt.MDFeRetEventoMDFe:
+                    if (string.IsNullOrEmpty(identificador))
+                        nome = identificador + "-env.xml";
+                    break;
+                default:
+                    nome = "arquivoXmlSalvo.xml";
+                    break;
+            }
+
+
+            return nome;
         }
 
         public static string Chave(this MDFEletronico mdfe)

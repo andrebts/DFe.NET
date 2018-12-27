@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Xml;
+using DFe.Classes.Entidades;
+using DFe.Classes.Flags;
 using MDFe.Classes.Extensoes;
 using MDFe.Classes.Informacoes.RetRecepcao;
 using MDFe.Tests.Dao;
 using MDFe.Tests.Entidades;
+using MDFe.Utils.Configuracoes;
+using MDFe.Utils.Flags;
 using Xunit;
 
 namespace MDFe.Tests.ClassesTests
@@ -171,8 +175,28 @@ namespace MDFe.Tests.ClassesTests
                 NRec = _recibo
             };
 
+            
+            //var instancia = new MDFeConfiguracao()
+            //{
+            //    CaminhoSalvarXml = @"D:\Usuario\Desktop",
+            //    CaminhoSchemas = @"C:\Users\Usuario\DFe.NET\DFe\DFe.NET\MDFe.Tests\Schemas",
+            //    VersaoWebService = new MDFeVersaoWebService()
+            //    {
+            //        TimeOut = 10000,
+            //        TipoAmbiente = TipoAmbiente.Homologacao,
+            //        UfEmitente = Estado.SE,
+            //        VersaoLayout = VersaoServico.Versao300
+            //    },
+            //    IsSalvarXml = true,
+            //    ConfiguracaoCertificado = new CertificadoDao().getConfiguracaoCertificado(),
+            //};
+
+            ////Act
+            //var result = Record.Exception(() => ExtMDFe.SalvarXmlEmDisco(_consultaRecibo, null, instancia));
+            
+
             //Act
-            var result = Record.Exception(() => _consultaRecibo.SalvarXmlEmDisco());
+            var result = Record.Exception(() =>_consultaRecibo.SalvarXmlEmDisco());
 
             //Assert
             Assert.Null(result);
