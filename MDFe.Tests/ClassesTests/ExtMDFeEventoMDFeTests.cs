@@ -70,6 +70,7 @@ namespace MDFe.Tests.ClassesTests
         public void Deve_Criar_Uma_Requisicao_Evento_incluir_Condutor_Com_Parametros_Validos()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             var condutor = new MDFeEvIncCondutorMDFe()
             {
                 Condutor = _condutor
@@ -80,7 +81,7 @@ namespace MDFe.Tests.ClassesTests
             var evento = FactoryEvento.CriaEvento(_mdfe, MDFeTipoEvento.InclusaoDeCondutor, 1, condutor);
 
             //Act
-            var xmlGerado = evento.CriaXmlRequestWs();
+            var xmlGerado = evento.CriaRequestWs();
 
             //Assert
             Assert.IsType<XmlDocument>(xmlGerado);
@@ -101,7 +102,7 @@ namespace MDFe.Tests.ClassesTests
             var evento = FactoryEvento.CriaEvento(_mdfe, MDFeTipoEvento.InclusaoDeCondutor, 1, condutor);
 
             //Act
-            var xmlGerado = evento.CriaXmlRequestWs();
+            var xmlGerado = evento.CriaRequestWs();
 
             //Assert
             Assert.NotNull(xmlGerado);
@@ -127,7 +128,7 @@ namespace MDFe.Tests.ClassesTests
             evento.Signature.KeyInfo.X509Data.X509Certificate = _valueKey;
 
             //Act
-            var xmlGerado = evento.CriaXmlRequestWs();
+            var xmlGerado = evento.CriaRequestWs();
             var xmlEsperado = repositorioDao.GetXmlEsperado(_xmlEsperadoIncluir);
 
             //Assert
@@ -150,7 +151,7 @@ namespace MDFe.Tests.ClassesTests
             _evento.Versao = 0;
 
             //Act
-            var exception = Assert.ThrowsAny<Exception>(() => _evento.CriaXmlRequestWs());
+            var exception = Assert.ThrowsAny<Exception>(() => _evento.CriaRequestWs());
 
             //Assert
             Assert.NotNull(exception);
@@ -195,7 +196,7 @@ namespace MDFe.Tests.ClassesTests
             var evento = FactoryEvento.CriaEvento(_mdfe, MDFeTipoEvento.Cancelamento, 1, cancelamento);
 
             //Act
-            var xmlGerado = evento.CriaXmlRequestWs();
+            var xmlGerado = evento.CriaRequestWs();
 
             //Assert
             Assert.IsType<XmlDocument>(xmlGerado);
@@ -217,7 +218,7 @@ namespace MDFe.Tests.ClassesTests
             var evento = FactoryEvento.CriaEvento(_mdfe, MDFeTipoEvento.Cancelamento, 1, cancelamento);
 
             //Act
-            var xmlGerado = evento.CriaXmlRequestWs();
+            var xmlGerado = evento.CriaRequestWs();
 
             //Assert
             Assert.NotNull(xmlGerado);
@@ -244,7 +245,7 @@ namespace MDFe.Tests.ClassesTests
             _evento.Signature.KeyInfo.X509Data.X509Certificate = _valueKey;
 
             //Act
-            var xmlGerado = _evento.CriaXmlRequestWs();
+            var xmlGerado = _evento.CriaRequestWs();
             var xmlEsperado = repositorioDao.GetXmlEsperado(_xmlEsperadoCancelar);
 
             //Assert
@@ -268,7 +269,7 @@ namespace MDFe.Tests.ClassesTests
             _evento.Versao = 0;
 
             //Act
-            var exception = Assert.ThrowsAny<Exception>(() => _evento.CriaXmlRequestWs());
+            var exception = Assert.ThrowsAny<Exception>(() => _evento.CriaRequestWs());
 
             //Assert
             Assert.NotNull(exception);
@@ -315,7 +316,7 @@ namespace MDFe.Tests.ClassesTests
 
             _evento = FactoryEvento.CriaEvento(_mdfe, MDFeTipoEvento.Encerramento, 1, encerramento);
             //Act
-            var xmlGerado = _evento.CriaXmlRequestWs();
+            var xmlGerado = _evento.CriaRequestWs();
 
             //Assert
             Assert.IsType<XmlDocument>(xmlGerado);
@@ -338,7 +339,7 @@ namespace MDFe.Tests.ClassesTests
 
             _evento = FactoryEvento.CriaEvento(_mdfe, MDFeTipoEvento.Encerramento, 1, encerramento);
             //Act
-            var xmlGerado = _evento.CriaXmlRequestWs();
+            var xmlGerado = _evento.CriaRequestWs();
 
             //Assert
             Assert.NotNull(xmlGerado);
@@ -368,7 +369,7 @@ namespace MDFe.Tests.ClassesTests
             _evento.Signature.KeyInfo.X509Data.X509Certificate = _valueKey;
 
             //Act
-            var xmlGerado = _evento.CriaXmlRequestWs();
+            var xmlGerado = _evento.CriaRequestWs();
             var xmlEsperado = repositorioDao.GetXmlEsperado(_xmlEsperadoEncerrar);
 
             //Assert
@@ -394,7 +395,7 @@ namespace MDFe.Tests.ClassesTests
             _evento.Versao = 0;
 
             //Act
-            var exception = Assert.ThrowsAny<Exception>(() => _evento.CriaXmlRequestWs());
+            var exception = Assert.ThrowsAny<Exception>(() => _evento.CriaRequestWs());
 
             //Assert
             Assert.NotNull(exception);
@@ -434,7 +435,7 @@ namespace MDFe.Tests.ClassesTests
             var evento = new MDFeEventoMDFe();
 
             //Act
-            var exception = Assert.ThrowsAny<Exception>(() => evento.CriaXmlRequestWs());
+            var exception = Assert.ThrowsAny<Exception>(() => evento.CriaRequestWs());
 
             //Assert
             Assert.NotNull(exception);

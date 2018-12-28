@@ -52,6 +52,7 @@ namespace MDFe.Tests.ClassesTests
         public void Deve_Criar_Uma_Requisicao_Para_Envio_Mdfe_Com_Parametros_Validos()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             var enviMdFe = new MDFeEnviMDFe()
             {
                 Versao = VersaoServico.Versao300,
@@ -60,7 +61,7 @@ namespace MDFe.Tests.ClassesTests
             };
 
             //Act
-            var xmlGerado = enviMdFe.CriaXmlRequestWs();
+            var xmlGerado = enviMdFe.CriaRequestWs();
             
             //Assert
             Assert.NotNull(xmlGerado);
@@ -71,6 +72,7 @@ namespace MDFe.Tests.ClassesTests
         public void Deve_Criar_Uma_Requisicao_Para_Envio_Mdfe_Nao_Nula()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             var enviMdFe = new MDFeEnviMDFe()
             {
                 Versao = VersaoServico.Versao300,
@@ -79,7 +81,7 @@ namespace MDFe.Tests.ClassesTests
             };
 
             //Act
-            var xmlGerado = enviMdFe.CriaXmlRequestWs();
+            var xmlGerado = enviMdFe.CriaRequestWs();
 
             //Assert
             Assert.NotNull(xmlGerado);
@@ -106,7 +108,7 @@ namespace MDFe.Tests.ClassesTests
             var repositorioDao = new RepositorioDaoFalso();
 
             //Act
-            var xmlGerado = enviMdFe.CriaXmlRequestWs();
+            var xmlGerado = enviMdFe.CriaRequestWs();
             var xmlEsperado = repositorioDao.GetXmlEsperado(_xmlEsperado);
 
             //Assert
@@ -125,7 +127,7 @@ namespace MDFe.Tests.ClassesTests
             };
 
             //Act
-            var exception = Assert.ThrowsAny<Exception>(() => enviMdFe.CriaXmlRequestWs());
+            var exception = Assert.ThrowsAny<Exception>(() => enviMdFe.CriaRequestWs());
 
             //Assert
             Assert.NotNull(exception);
@@ -144,7 +146,7 @@ namespace MDFe.Tests.ClassesTests
             };
 
             //Act
-            var exception = Assert.ThrowsAny<Exception>(() => enviMdFe.CriaXmlRequestWs());
+            var exception = Assert.ThrowsAny<Exception>(() => enviMdFe.CriaRequestWs());
 
             //Assert
             Assert.NotNull(exception);

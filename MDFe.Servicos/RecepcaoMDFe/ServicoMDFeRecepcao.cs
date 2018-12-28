@@ -73,7 +73,7 @@ namespace MDFe.Servicos.RecepcaoMDFe
 
             OnAntesDeEnviar(enviMDFe);
 
-            var retornoXml = webService.mdfeRecepcaoLote(enviMDFe.CriaXmlRequestWs());
+            var retornoXml = webService.mdfeRecepcaoLote(enviMDFe.CriaRequestWs());
 
             var retorno = MDFeRetEnviMDFe.LoadXml(retornoXml?.OuterXml, enviMDFe);
 

@@ -17,6 +17,7 @@ namespace MDFe.Classes.Flags
         MDFeRetEnviMDFe = 8,
         MDFeRetConsMDFeNao = 9,
         MDFeRetConsSitMDFe = 10,
-        MDFeRetEventoMDFe = 11
+        MDFeRetEventoMDFe = 11,
+        MDFeEventoMDFe = 12
     }
 }

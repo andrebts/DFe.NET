@@ -67,7 +67,7 @@ namespace MDFe.Servicos.EventosMDFe
                 }
             };
 
-            eventoMdfe.Assinar(config);
+            eventoMdfe.Assina(config);
 
             return eventoMdfe;
         }

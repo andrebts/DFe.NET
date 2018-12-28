@@ -43,7 +43,7 @@ namespace MDFe.Servicos.StatusServicoMDFe
         public MDFeRetConsStatServ MDFeStatusServico(MDFeConfiguracao cfgMdfe = null)
         {
             var consStatServMDFe = ClassesFactory.CriaConsStatServMDFe(cfgMdfe);
-            consStatServMDFe.ValidarSchema(cfgMdfe);
+            consStatServMDFe.Valida(cfgMdfe);
             var webService = WsdlFactory.CriaWsdlMDFeStatusServico(cfgMdfe);
             var retornoXml = webService.mdfeStatusServicoMDF(consStatServMDFe.CriaRequestWs());
             var retorno = MDFeRetConsStatServ.LoadXml(retornoXml.OuterXml, consStatServMDFe);

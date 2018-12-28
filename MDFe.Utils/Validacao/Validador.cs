@@ -46,7 +46,7 @@ namespace MDFe.Utils.Validacao
         {
             switch (mdFeServico)
             {
-                case MDFeServico.MDFEletronico:
+                case MDFeServico.MDFe:
                     switch (versao)
                     {
                         case VersaoServico.Versao100:

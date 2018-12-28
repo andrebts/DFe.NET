@@ -71,7 +71,7 @@ namespace MDFe.Tests.Dao
                 VersaoLayout = VersaoServico.Versao300,
                 CaminhoSchemas = AppDomain.CurrentDomain.BaseDirectory + @"\Schemas",
                 Numeracao = 1,
-                TimeOut = 1000,
+                TimeOut = 10000,
                 UfEmitente = Estado.SE
 
             };

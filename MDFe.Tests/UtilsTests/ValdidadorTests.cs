@@ -96,7 +96,7 @@ namespace MDFe.Tests.UtilsTests
                 TpAmb = _configuracao.ConfigWebService.Ambiente,
                 Versao = _configuracao.ConfigWebService.VersaoLayout
             };
-            
+
             //Act
             var result = Record.Exception(() => Validador.Valida(xmlEnvio.XmlString(), _schema_status));
 
@@ -204,7 +204,8 @@ namespace MDFe.Tests.UtilsTests
             };
 
             //Act
-            var result = Record.Exception(() => Validador.Valida(xmlEnvio.XmlString(), _schema_encerradas));
+            var result = Record.Exception(() => ExtMDFe.Valida(xmlEnvio));
+            //var result = Record.Exception(() => Validador.Valida(xmlEnvio.XmlString(), _schema_encerradas));
 
             //Assert
             Assert.Null(result);
@@ -296,7 +297,7 @@ namespace MDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void DDeve_Gerar_Uma_Excecao_Na_Validacao_Por_Schema_Incorreto_Para_Requisicao_ConsultasNaoEncerradas()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Schema_Incorreto_Para_Requisicao_ConsultasNaoEncerradas()
         {
             //Arrange
             var xmlEnvio = new MDFeCosMDFeNaoEnc()
@@ -328,9 +329,10 @@ namespace MDFe.Tests.UtilsTests
                 Versao = _configuracao.ConfigWebService.VersaoLayout,
                 NRec = _recibo
             };
-            
+
             //Act
-            var result = Record.Exception(() => Validador.Valida(xmlEnvio.XmlString(), _schema_recibo));
+            var result = Record.Exception(() => ExtMDFe.Valida(xmlEnvio));
+            //var result = Record.Exception(() => Validador.Valida(xmlEnvio.XmlString(), _schema_recibo));
 
             //Assert
             Assert.Null(result);
@@ -436,7 +438,8 @@ namespace MDFe.Tests.UtilsTests
             };
 
             //Act
-            var result = Record.Exception(() => Validador.Valida(xmlEnvio.XmlString(), _schema_protocolo));
+            var result = Record.Exception(() => ExtMDFe.Valida(xmlEnvio));
+            //var result = Record.Exception(() => Validador.Valida(xmlEnvio.XmlString(), _schema_protocolo));
 
             //Assert
             Assert.Null(result);
@@ -560,7 +563,8 @@ namespace MDFe.Tests.UtilsTests
             var xml = FuncoesXml.ClasseParaXmlString(_mdfe);
 
             //Act
-            var result = Record.Exception(() =>Validador.Valida(xml, _schema_mdfe));
+            var result = Record.Exception(() => _mdfe.Valida());
+            
 
             //Assert
             Assert.Null(result);
@@ -634,6 +638,7 @@ namespace MDFe.Tests.UtilsTests
         public void Deve_Validar_O_Xml_Com_Nome_E_Schema_Corretos_Para_EnviMDFe()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             _enviMdFe = new MDFeEnviMDFe()
             {
                 Versao = VersaoServico.Versao300,
@@ -668,6 +673,7 @@ namespace MDFe.Tests.UtilsTests
         public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Falta_Do_Schema_Para_EnviMDFe()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             _enviMdFe = new MDFeEnviMDFe()
             {
                 Versao = VersaoServico.Versao300,
@@ -690,6 +696,7 @@ namespace MDFe.Tests.UtilsTests
         public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_XML_Incorreto_Para_EnviMDFe()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             _enviMdFe = new MDFeEnviMDFe()
             {
                 Versao = VersaoServico.Versao300,
@@ -712,6 +719,7 @@ namespace MDFe.Tests.UtilsTests
         public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Schema_Incorreto_Para_EnviMDFe()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             _enviMdFe = new MDFeEnviMDFe()
             {
                 Versao = VersaoServico.Versao300,
@@ -828,9 +836,10 @@ namespace MDFe.Tests.UtilsTests
             _mdfe.Assina();
             _evento = FactoryEvento.CriaEvento(_mdfe, MDFeTipoEvento.InclusaoDeCondutor, 1, condutor);
             var xml = FuncoesXml.ClasseParaXmlString(_evento);
-            
+
             //Act
-            var result = Record.Exception(() =>Validador.Valida(xml, _schema_eventos));
+            var result = Record.Exception(() => ExtMDFe.Valida(_evento));
+            //var result = Record.Exception(() =>Validador.Valida(xml, _schema_eventos));
 
             //Assert
             Assert.Null(result);
@@ -925,7 +934,8 @@ namespace MDFe.Tests.UtilsTests
             var xml = FuncoesXml.ClasseParaXmlString(_evento);
 
             //Act
-            var result = Record.Exception(() =>Validador.Valida(xml, _schema_eventos));
+            var result = Record.Exception(() => ExtMDFe.Valida(_evento));
+            //var result = Record.Exception(() =>Validador.Valida(xml, _schema_eventos));
 
             //Assert
             Assert.Null(result);
@@ -1026,7 +1036,8 @@ namespace MDFe.Tests.UtilsTests
             var xml = FuncoesXml.ClasseParaXmlString(_evento);
 
             //Act
-            var result = Record.Exception(() => Validador.Valida(xml, _schema_eventos));
+            var result = Record.Exception(() => ExtMDFe.Valida(_evento));
+            //var result = Record.Exception(() => Validador.Valida(xml, _schema_eventos));
 
             //Assert
             Assert.Null(result);

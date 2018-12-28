@@ -43,7 +43,7 @@ namespace MDFe.Servicos.RetRecepcaoMDFe
         public MDFeRetConsReciMDFe MDFeRetRecepcao(string numeroRecibo, MDFeConfiguracao cfgMdfe = null)
         {
             var consReciMdfe = ClassesFactory.CriaConsReciMDFe(numeroRecibo, cfgMdfe);
-            consReciMdfe.ValidaSchema(cfgMdfe);
+            consReciMdfe.Valida(cfgMdfe);
             var webService = WsdlFactory.CriaWsdlMDFeRetRecepcao(cfgMdfe);
             var retornoXml = webService.mdfeRetRecepcao(consReciMdfe.CriaRequestWs());
             var retorno = MDFeRetConsReciMDFe.LoadXml(retornoXml.OuterXml, consReciMdfe);

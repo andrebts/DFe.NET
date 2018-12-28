@@ -44,7 +44,7 @@ namespace MDFe.Servicos.ConsultaNaoEncerradosMDFe
         public MDFeRetConsMDFeNao MDFeConsultaNaoEncerrados(string cnpj, MDFeConfiguracao cfgMdfe = null)
         {
             var consMDFeNaoEnc = ClassesFactory.CriarConsMDFeNaoEnc(cnpj, cfgMdfe);
-            consMDFeNaoEnc.ValidarSchema(cfgMdfe);
+            consMDFeNaoEnc.Valida(cfgMdfe);
             var webService = WsdlFactory.CriaWsdlMDFeConsNaoEnc(cfgMdfe);
             var retornoXml = webService.mdfeConsNaoEnc(consMDFeNaoEnc.CriaRequestWs());
             var retorno = MDFeRetConsMDFeNao.LoadXmlString(retornoXml.OuterXml, consMDFeNaoEnc);

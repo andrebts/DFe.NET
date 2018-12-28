@@ -54,10 +54,10 @@ namespace MDFe.Servicos.EventosMDFe
                 eventoContainer,
                 config);
 
-            evento.ValidarSchema(config);
+            evento.Valida(config);
 
             var webService = WsdlFactory.CriaWsdlMDFeRecepcaoEvento(config);
-            var retornoXml = webService.mdfeRecepcaoEvento(evento.CriaXmlRequestWs());
+            var retornoXml = webService.mdfeRecepcaoEvento(evento.CriaRequestWs());
 
             var retorno = MDFeRetEventoMDFe.LoadXml(retornoXml.OuterXml, evento);
 

@@ -6,7 +6,7 @@ namespace MDFe.Utils.Flags
 {
     public enum MDFeServico
     {
-        MDFEletronico = 0,
+        MDFe = 0,
         MDFeRodo = 1,
         MDFeAereo = 2,
         MDFeAquav = 3,

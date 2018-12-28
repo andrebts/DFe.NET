@@ -175,26 +175,6 @@ namespace MDFe.Tests.ClassesTests
                 NRec = _recibo
             };
 
-            
-            //var instancia = new MDFeConfiguracao()
-            //{
-            //    CaminhoSalvarXml = @"D:\Usuario\Desktop",
-            //    CaminhoSchemas = @"C:\Users\Usuario\DFe.NET\DFe\DFe.NET\MDFe.Tests\Schemas",
-            //    VersaoWebService = new MDFeVersaoWebService()
-            //    {
-            //        TimeOut = 10000,
-            //        TipoAmbiente = TipoAmbiente.Homologacao,
-            //        UfEmitente = Estado.SE,
-            //        VersaoLayout = VersaoServico.Versao300
-            //    },
-            //    IsSalvarXml = true,
-            //    ConfiguracaoCertificado = new CertificadoDao().getConfiguracaoCertificado(),
-            //};
-
-            ////Act
-            //var result = Record.Exception(() => ExtMDFe.SalvarXmlEmDisco(_consultaRecibo, null, instancia));
-            
-
             //Act
             var result = Record.Exception(() =>_consultaRecibo.SalvarXmlEmDisco());
 

@@ -44,7 +44,7 @@ namespace MDFe.Servicos.ConsultaProtocoloMDFe
         public MDFeRetConsSitMDFe MDFeConsultaProtocolo(string chave, MDFeConfiguracao cfgMdfe = null)
         {
             var consSitMdfe = ClassesFactory.CriarConsSitMDFe(chave, cfgMdfe);
-            consSitMdfe.ValidarSchema(cfgMdfe);
+            consSitMdfe.Valida(cfgMdfe);
 
             var webService = WsdlFactory.CriaWsdlMDFeConsulta(cfgMdfe);
             var retornoXml = webService.mdfeConsultaMDF(consSitMdfe.CriaRequestWs());
