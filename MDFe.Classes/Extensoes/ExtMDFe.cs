@@ -68,13 +68,21 @@ namespace MDFe.Classes.Extensoes
 
             Validador.Valida(xmlServico, mdfeServico, config);
 
+            ValidaSubSchemas(objeto, mdfeServico, config);
+
+            return objeto;
+        }
+
+        private static void ValidaSubSchemas<T>(T objeto, MDFeServico mdfeServico, MDFeConfiguracao config)
+        {
+            string tipoServico;
             switch (mdfeServico)
             {
                 case MDFeServico.MDFe:
                     var mdfe = objeto as MDFEletronico;
                     var tipoModal = mdfe.InfMDFe.InfModal.Modal.GetType().Name;
                     var xmlModal = FuncoesXml.ClasseParaXmlString(mdfe.InfMDFe.InfModal);
-                    mdfeServico = (MDFeServico)Enum.Parse(typeof(MDFeServico), tipoModal);
+                    mdfeServico = (MDFeServico) Enum.Parse(typeof(MDFeServico), tipoModal);
                     Validador.Valida(xmlModal, mdfeServico, config);
                     break;
                 case MDFeServico.MDFeEnviMDFe:
@@ -87,18 +95,19 @@ namespace MDFe.Classes.Extensoes
                     var xmlTipoEvento = "";
 
                     if (tipoServico.Equals("MDFeEvCancMDFe"))
-                        xmlTipoEvento = FuncoesXml.ClasseParaXmlString((MDFeEvCancMDFe)evento.InfEvento.DetEvento.EventoContainer);
+                        xmlTipoEvento =
+                            FuncoesXml.ClasseParaXmlString((MDFeEvCancMDFe) evento.InfEvento.DetEvento.EventoContainer);
                     if (tipoServico.Equals("MDFeEvEncMDFe"))
-                        xmlTipoEvento = FuncoesXml.ClasseParaXmlString((MDFeEvEncMDFe)evento.InfEvento.DetEvento.EventoContainer);
+                        xmlTipoEvento =
+                            FuncoesXml.ClasseParaXmlString((MDFeEvEncMDFe) evento.InfEvento.DetEvento.EventoContainer);
                     if (tipoServico.Equals("MDFeEvIncCondutorMDFe"))
-                        xmlTipoEvento = FuncoesXml.ClasseParaXmlString((MDFeEvIncCondutorMDFe)evento.InfEvento.DetEvento.EventoContainer);
+                        xmlTipoEvento =
+                            FuncoesXml.ClasseParaXmlString((MDFeEvIncCondutorMDFe) evento.InfEvento.DetEvento.EventoContainer);
 
-                    mdfeServico = (MDFeServico)Enum.Parse(typeof(MDFeServico), tipoServico);
+                    mdfeServico = (MDFeServico) Enum.Parse(typeof(MDFeServico), tipoServico);
                     Validador.Valida(xmlTipoEvento, mdfeServico, config);
                     break;
             }
-
-            return objeto;
         }
 
         public static string XmlString<T>(this T objeto)
@@ -182,8 +191,6 @@ namespace MDFe.Classes.Extensoes
                     nome = "arquivoXmlSalvo.xml";
                     break;
             }
-
-
             return nome;
         }
 
